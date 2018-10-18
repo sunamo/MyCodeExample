@@ -1,0 +1,42 @@
+﻿Jedná se o XAML a .cs kód aplikace GeoCachingTool, kde se vyhledají kešky, uloží se do seznamu, tento seznam se vytiskne se všemi podstatnými údaji (nikde jsem nenašel aplikaci/extension/atd. která by ukládala i počet Favorites). https://cs.wikipedia.org/wiki/Geocaching
+
+Prvně se uživatel musí příhlásit, jinak by nebylo možné otevřít listing kešek (při nepřihlášení se nezobrazí nezbytné údaje takže by to byla ztráta času.)
+
+Základní princip fungování:
+1) Přihlášení na geocaching.com
+2) Otevře se výchozí stránka geocaching.com, zadá se kde hledat
+3) Kešky se otevírají v nových tabech
+4) Zvolí si název seznamu, které je zároveň název souboru (po odstranění nepovolených znaků)
+5) Seznam si vytiskne
+6) Otevře si stránky v externím prohlížeči kde se stáhne pro každou .gpx soubor - ač aplikace má všechny data k tomu aby vytvořila sama .gpx soubor, řešil jsem to takto, Groundspeak bojoval proti způsobům vytváření .gpx souborů protože na jejich webu k tomu musí být prémiový účet
+6) Po návratu domů, opět se v externím prohlížeči se otevře stránka na logování
+
+Aplikace je UWP (Universal Windows Platform), funguje všude ale nemá responzivní design. Na mobilu atd. funguje ale mnohem lepší UX poskytuje na zařízení s klávesnicí a poloh. zařízením. 
+Byl to můj první počin který byl na Windows Store a vůbec si nevedla špatně staženími ani recenzemi :)
+Veškerá lokalizace je nahrávávána z .xlf souborů - ty se generují skrze Multilingual App Toolkit. Aplikace poskytuje ve výchozím stavu plnohodnotné rozhraní pro en-US a cz-CZ. 
+Jsou využívány jen WPF controls od MS
+V MainPage se zobrazují 2 poslední varování/chyby a úspěchy/informace
+Pro ikony se využívá buď originální Windows Universal symbols nebo AwesomeFont v syntaxi \u{awesomeFont}, která jde přiřadit do např. textBlock.Text a s nastaveným FontFamily se ikona zobrazí
+Ve SplitView.Pane jsou tlačítka pro módy: 
+1) Webový prohlížeč
+2) Uložené kešky
+3) Logy
+Integrován je CommandBar. Ikony se doplňují nebo odebírají zobrazeného módu. Všem buttonum se mění dynamicky IsEnabled podle faktorů skrze  třídy odvozené od ISunamoCommand.
+
+1) Webový prohlížeč
+Na interní úrovni využívá WebView
+Uživatel může načíst jakoukoliv stránku nebo i hledat na googlu
+Otevírání má 3 režimy: 
+never - protože AweView_NavigationStarting se vyvolává i při posunutí mapy, 
+always - všechny odkazy se otevírají v novém tabu automaticky
+prompt - před otevřením se zeptá
+
+TabItem.Content -> SunamoBrowser (zapouzdřené v XAML protože obsahuje vlastní XAML kód i metody) -> WebView
+
+2) Uložené kešky
+seznam se ukládá do textových souborů
+Prostor je rozdělen 25/75, na levé straně je ListView se SelectorHelperItem - znovu použitelný prvek s tlačítky, zde se zobrazuje jen pro odstranění prvku.
+Dříve jsem si ukládal kešky na geocaching.sunamo.cz, proto zde jsou volány reference na webové služby
+
+3) Logy
+Položky logu jsou barevne zvyrazneny (chyba, varovani, uspech, informace)

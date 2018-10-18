@@ -1,0 +1,103 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="LyricsMaster" CodeBehind="Lyrics.Master.cs" %>
+
+<!DOCTYPE  html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US,cs-CZ"
+xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head runat="server">
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body class="metro" id="body" runat="server" data-ga="UA-74495903-1">
+    <form id="form1" runat="server">
+        <div id="horniLista" runat="server"></div>
+        <div id="bg-image">
+            <div id="main">
+
+                <div id="r1">
+                    <div id="ic">
+                        <a runat="server" id="aHome" title="Hlavní stránka webu Lyrics">
+                            <img runat="server" style="cursor: pointer;" id="imgColorPiano" alt="Barevné piáno" />
+                        </a>
+                    </div>
+                    <div id="cd">
+                        <img alt="" id="cdpic" runat="server" src="img/Lyrics/cds/benessere_cd1.jpg" width="200" height="200" /></div>
+                </div>
+
+                <div id="r2">
+                    <div id="obsah" class="columnSameSize iosbRepair">
+                        <div>
+                            <button class="button" id="divScrollToNavigation" onclick="return scrollToTop('#menu');"><span class="mif-move-down"></span>Přeskočit na navigaci</button>
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+
+                    </div>
+
+                    <div id="menu" class="columnSameSize">
+                        <div id="menuCloser">
+
+                            <div id="menuInner">
+                                <div>
+                                    <a href="Lyrics/Profile" id="A0" runat="server" class="odkazMenu">Můj profil</a>
+                                </div>
+                                <div>
+                                    <a id="A1" href="Lyrics/AddSong" runat="server" class="odkazMenu">Přidat novou píseň</a>
+                                </div>
+                                <div>
+                                    <a id="A2" href="Lyrics/AllSongs/Page/1" runat="server" class="odkazMenu">Všechny texty písní</a>
+                                </div>
+                            </div>
+
+                            <div id="searchWrapper">
+                                <div class="input-control text full-size" data-role="hint"
+                                    data-hint-background="bg-green"
+                                    data-hint-color="fg-white"
+                                    data-hint-mode="2"
+                                    data-hint-position="true"
+                                    data-hint="Nápověda|Text zadávejte vč. diakritiky">
+                                    <input type="text" id="txtSearchText" runat="server" class="full-size" placeholder="Hledaný výraz" />
+                                </div>
+                            </div>
+
+                            <div style="text-align: center;">
+
+                                <button class="button"><span class="mif-search"></span></button>
+                                <div id="loginForm" class="naStred" runat="server">
+
+                                    &nbsp;Login:
+                                    <br />
+
+                                    <div class="input-control modern text iconic full-size">
+                                        <asp:TextBox runat="server" CssClass="mo" ID="login"></asp:TextBox>
+                                        <span class="placeholder">přezdívka/email</span>
+                                        <span class="icon mif-user"></span>
+                                    </div>
+
+                                    &nbsp;Heslo:
+                                    <br />
+                                    <div class="input-control modern password iconic full-size" data-role="input">
+                                        <asp:TextBox runat="server" CssClass="mo" ID="heslo"></asp:TextBox>
+                                        <span class="placeholder">heslo</span>
+                                        <span class="icon mif-lock"></span>
+                                    </div>
+
+                                    <p style="color: red; text-align: center;">Přihlášení bude stálé, dokud se neodhlásíte.</p>
+                                    <button runat="server" class="button" type="button" id="btnLogIn"><span class="mif-unlock"></span>Přihlásit se</button>
+
+                                </div>
+
+                                <div id="logined" runat="server" class="motb naStred">
+                                    <button runat="server" type="button" class="button" id="btnLogOut"><span class="mif-lock"></span>Odhlásit se</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer" runat="server"></div>
+    </form>
+</body>
+</html>

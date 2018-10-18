@@ -2,9 +2,9 @@
 
 Included:
 
-MainPage.xaml of GeoCachingTool - Windows Universal App
+Windows Universal App - MainPage.xaml of GeoCachingTool
 
-Frontend and backend of Song.aspx and Album.aspx from lyrics.sunamo.cz 
+ASP.NET Web Forms - Frontend and backend of Song.aspx and Album.aspx from lyrics.sunamo.cz 
 
 - with MasterPage and TypeScript 
 - domain is working, unfortunately in preparing to republishing now. It will be soon. 

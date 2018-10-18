@@ -1,0 +1,26 @@
+﻿Jedná se o stránku na zobrazení textů písně společně s jejím překladem. Každá píseň může mít více originálních i přeložených textů (Kdyby někdo vložil špatný, opravit jej může jen autor nebo administrátor. Návštěvníci mohli označit závadný a hlasovat pro svoje oblíbené - pokud si návštěvník přes Query String nevyžádal jinak, zobrazil se mu u obou ty s nejlepším hodnocením).
+Návštěvník mohl přidat svoje vlastní YT video k písničce, za předpokladu že už tam nebylo. Oba 2 texty i video pouze po jednom, samozřejmě.
+Bylo zde použito pár jQuery efektů, např. vysouvání videa pro úsporu místa.
+Web byl můj úplně první naprogramovaný v 2012.
+Návštěvník si mohl uložit text písně to oblíbených nebo hlasovat pro jeho kvalitu.
+Stránka je odvozená od LyricsPage, která zase od SunamoPage. 
+Každý přístup na sledované stránky se zapisuje do DB. Jednou denně se uloží do oddělené tabulky počty návštěv pro stránku za včerejšek, posledních 7 dní a dnešek
+Klientské skripty načítám zásadně v back-endu, jsou závislé na sobě a algoritmus na pozadí mi toto hlídá.
+Přidává se snippet OpenGraph a Schema.org pro snazší indexaci vyhledáváčů a přívětivější náhledy na sociálních sítích atd.
+Pro lidi se slabším zrakem se měnila JSem velikost textu.
+Interface stránky byl v CZ, pouze čas a datum byly přizpůsobeny návštěvníkovi dle HTML hlaviček(useragent).
+Přístupy do SQL serveru byly relizovány mou vlastní třídou.
+Data o podobných umělcích a tagech byly z last.fm.
+
+je nam lito ale nemate povolen pristup k teto sluzbe
+
+Příjemný den,
+
+27. 11 bohuminska 
+
+defect,ostranit
+remediation,vada
+hinders, branit
+reluctant,neochotny
+necessiate,vyzadovat
+acknowledging,potvrdit

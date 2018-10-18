@@ -1,0 +1,147 @@
+﻿<Page
+    x:Class="GeoCachingTool.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GeoCachingTool"
+    x:Name="mw"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:uwc="using:UniversalWebControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="StatusBarTextBlock">
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <local:CloseActualTabCommand x:Name="cmdCloseActualTab" x:Key="cmdCloseActualTab" x:FieldModifier="internal"></local:CloseActualTabCommand>
+        <local:CloseAllTabsCommand x:Name="cmdCloseAllTabs" x:Key="cmdCloseAllTabs" x:FieldModifier="internal"></local:CloseAllTabsCommand>
+        <local:OpenListingsInGcComCommand x:Name="cmdOpenListingsInGcCom" x:Key="cmdOpenListingsInGcCom" x:FieldModifier="internal"></local:OpenListingsInGcComCommand>
+        <local:OpenPagesToLogInGcComCommand x:Name="cmdLogVisitsInGcCom" x:Key="cmdLogVisitsInGcCom" x:FieldModifier="internal"></local:OpenPagesToLogInGcComCommand>
+        <local:LogInToGeoCachingComCommand x:Name="cmdLogInToGeoCachingCom" x:Key="cmdLogInToGeoCachingCom" x:FieldModifier="internal"></local:LogInToGeoCachingComCommand>
+        <local:CreateHtmlCommand x:Name="cmdCreateHtml" x:Key="cmdCreateHtml" x:FieldModifier="internal"></local:CreateHtmlCommand>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ProgressBar IsIndeterminate="True" x:Name="pbLongOperation" Foreground="Red" Padding="25" Grid.Row="0" Visibility="Collapsed"></ProgressBar>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"></ColumnDefinition>
+                <ColumnDefinition Width="50*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="tbLastErrorOrWarning" TextTrimming="WordEllipsis" Grid.Column="0" Grid.Row="0"></TextBlock>
+            <TextBlock x:Name="tbLastOtherMessage" TextTrimming="WordEllipsis" Grid.Column="1" Grid.Row="0"></TextBlock>
+        </Grid>
+
+        <SplitView Grid.Row="2" x:Name="MySplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="50">
+            <SplitView.Pane>
+                <StackPanel Background="Gray" x:Name="spButtonsInNav">
+
+                    <Button x:Name="btnWebBrowserNav" Click="btnWebBrowserNav_Click" Width="50" Height="50">
+                        <Grid>
+                            <TextBlock x:Name="txtWebBrowser" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="btnSavedCachesNav" Click="btnSavedCachesNav_Click" Width="50" Height="50">
+                        <Grid>
+                            <TextBlock x:Name="txtSavedCaches" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="btnLogInNav" Click="btnLogInNav_Click" Width="50" Height="50">
+                        <Grid>
+                            <TextBlock x:Name="txtLog" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                </StackPanel>
+            </SplitView.Pane>
+
+            <SplitView.Content>
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--SunamoBrowser is add as Children dynamically-->
+                    <Grid Grid.Row="0" x:Name="gridWebBrowser">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                        <Grid Background="White"  Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="10" x:Name="btnCloseActualTab" Background="Red" x:FieldModifier="internal" Command="{Binding Source={StaticResource cmdCloseActualTab}}"></Button>
+                            <ComboBox Grid.Column="1" x:Name="cbOpenedTabs" SelectionChanged="CbOpenedTabs_SelectionChanged" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" ItemsSource="{Binding}"></ComboBox>
+                        </Grid>
+
+                        <uwc:SunamoBrowserControls x:Name="sbc" NewSearchRequested="sbc_NewSearchRequested" Grid.Row="1" NewUriEntered="SunamoBrowserControls_NewUriEntered" BackButtonClick="sbc_BackButtonClick" NextButtonClick="sbc_NextButtonClick" ReloadButtonClick="sbc_ReloadButtonClick" StopButtonClick="sbc_StopButtonClick"></uwc:SunamoBrowserControls>
+
+                        <uwc:OpenInControl x:Name="openInNewTab" Grid.Column="1" Grid.Row="1"></uwc:OpenInControl>
+
+                    </Grid>
+
+                    <Grid Grid.Row="0" x:Name="gridSaveCaches" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Uid="tbGridSavedCachesList" TextWrapping="WrapWholeWords" Margin="5,5,15,5" Grid.Row="0"></TextBlock>
+
+                        <Grid Grid.Row="1" x:Name="gridSaveCachesContent"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Grid>
+                    </Grid>
+                    
+                    <Grid Grid.Row="0" x:Name="gridLog" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Uid="tbGridLogHeader" Margin="5,5,15,5" Grid.Row="0" TextWrapping="WrapWholeWords"></TextBlock>
+                        
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" x:Name="lbLogsSV" VerticalScrollMode="Enabled" Grid.Row="1" Grid.Column="0">
+                            <StackPanel x:Name="lbLogs"></StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                    
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+
+        <CommandBar Grid.Row="3" Visibility="Visible" x:Name="commandBar" RequestedTheme="Dark">
+            <AppBarButton Icon="SaveLocal" x:Uid="abbOpenedListingsToNormalBrowser" x:Name="abbOpenedListingsToNormalBrowser" Click="abbOpenedListingsToNormalBrowser_Click"></AppBarButton>
+            <AppBarButton Icon="List" x:Uid="abbOpenTabsToSavedList" x:Name="abbOpenTabsToSavedList" Click="miOpenedTabsToList_Click"></AppBarButton>
+            <AppBarButton Icon="ViewAll" Label="Listing" x:Uid="abbOpenListingsInGcCom" x:Name="abbOpenListingsInGcCom" x:FieldModifier="internal" Command="{Binding Source={StaticResource cmdOpenListingsInGcCom}}"></AppBarButton>
+            <AppBarButton Icon="Send" Label="Log visit" x:Uid="abbLogVisitsInGcCom" x:Name="abbLogVisitsInGcCom" x:FieldModifier="internal" Command="{Binding Source={StaticResource cmdLogVisitsInGcCom}}"></AppBarButton>
+            <AppBarButton Label="Create HTML List" x:Uid="abbCreateHtmlList" x:Name="abbCreateHtmlList" x:FieldModifier="internal" Command="{Binding Source={StaticResource cmdCreateHtml}}"></AppBarButton>
+            <AppBarButton Icon="Contact" x:Name="abbLogInToGeoCachingCom" x:FieldModifier="internal" Command="{Binding Source={StaticResource cmdLogInToGeoCachingCom}}"></AppBarButton>
+            <AppBarButton Icon="Contact" Visibility="Collapsed" Label="Log in" x:Uid="abbLogInToSunamoCz" x:Name="abbLogInToSunamoCz" x:FieldModifier="internal" Click="abbLogInToSunamoCz_Click"></AppBarButton>
+            <AppBarButton Icon="BlockContact" Visibility="Collapsed" Label="Log out" x:Uid="abbLogOutToSunamoCz" x:Name="abbLogOutToSunamoCz" x:FieldModifier="internal" Click="abbLogInToSunamoCz_Click"></AppBarButton>
+            <AppBarButton Icon="LikeDislike" Label="About app"  x:Uid="abbAboutApp" x:Name="abbAboutApp" x:FieldModifier="internal" Click="abbAboutApp_Click"></AppBarButton>
+        </CommandBar>
+    </Grid>
+</Page>
