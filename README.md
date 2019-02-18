@@ -10,8 +10,6 @@ ASP.NET Web Forms - Frontend and backend of Song.aspx and Album.aspx from lyrics
 - domain is working, unfortunately in preparing to republishing now. It will be soon. 
 - *.txt has been written to better understanding
 
-
-
 Files structure:
 
 ├───GeoCachingTool
